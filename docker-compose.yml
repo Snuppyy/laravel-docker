@@ -7,7 +7,9 @@ services:
       - ./:/var/www
       - ./_docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - 8876:80
+      - 80:80
+    networks:
+      - internal
     depends_on:
       - app
     container_name: chimgan_nginx
@@ -18,6 +20,11 @@ services:
       dockerfile: _docker/app/Dockerfile
     volumes:
       - ./:/var/www
+    networks:
+      - internal
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003
     depends_on:
         - db
     container_name: chimgan_app
@@ -31,7 +38,7 @@ services:
         MYSQL_DATABASE: laravel
         MYSQL_ROOT_PASSWORD: root
     ports:
-      - 8101:3306
+      - 3306:3306
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     container_name: chimgan_db
   
@@ -42,3 +49,7 @@ services:
     volumes: 
       - "./:/var/www"
     container_name: chimgan_node
+
+networks:
+  internal:
+    driver: bridge
