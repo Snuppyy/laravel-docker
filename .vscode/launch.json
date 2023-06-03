@@ -10,7 +10,7 @@
          // server -> local
          // just the opposite of your bound volumes
          "pathMappings": {
-            "/var/www/html/": "${workspaceRoot}/",
+            "/var/www/": "${workspaceRoot}/",
          },
       }
    ]

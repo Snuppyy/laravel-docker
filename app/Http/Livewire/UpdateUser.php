@@ -2,12 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class UpdateUser extends Component
+class UpdateUser extends ModalComponent
 {
-    public function render()
-    {
-        return view('livewire.update-user');
-    }
+   public function render()
+   {
+      return view('livewire.update-user');
+   }
 }
