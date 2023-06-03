@@ -1,5 +1,15 @@
 FROM php:8.2.7RC1-fpm
 
+# install xdebug
+RUN pecl install xdebug
+
+# copy over the config files
+COPY ./_docker/app/xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+COPY ./_docker/app/error_reporting.ini /usr/local/etc/php/conf.d/error_reporting.ini
+
+# enable the extension
+RUN docker-php-ext-enable xdebug
+
 RUN apt-get update && apt-get install -y \
    apt-utils \
    libpq-dev \
